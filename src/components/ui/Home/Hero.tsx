@@ -2,10 +2,10 @@ import styled from "styled-components";
 import chessDeck from "@/../public/assets/img/chess-deck.png"
 import Image from "next/image";
 import {Button, ButtonType} from "@/components/reusable/Button";
-import {getLang} from "@/hooks/getText";
+import {useLang} from "@/hooks/getText";
 
 export const Hero = ()=>{
-    const getText = getLang("Home")
+    const getText = useLang("Home")
 
     return (
         <Container>
@@ -20,8 +20,8 @@ export const Hero = ()=>{
                             <StatisticItem>10,652,630 <StatisticText>Games Today</StatisticText></StatisticItem>
                             <StatisticItem>10,652,630 <StatisticText>Games Today</StatisticText></StatisticItem>
                         </StatContainer>
-                        <Button type={ButtonType.Light} width='450px' height='70px' is3D>Play Online</Button>
-                        <Button type={ButtonType.Dark} width='450px' height='70px' is3D>Play Computer</Button>
+                        <Button type={ButtonType.Light} width='450px' height='70px' fontSize={"30px"} is3D>Play Online</Button>
+                        <Button type={ButtonType.Dark} width='450px' height='70px' fontSize={"30px"} is3D>Play Computer</Button>
                     </Header>
                 </IntroGroup>
             </Intro>

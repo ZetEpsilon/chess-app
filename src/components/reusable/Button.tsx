@@ -33,12 +33,14 @@ interface ButtonProps{
     is3D?:boolean
     width?:string,
     height?:string,
-    children?:JSX.Element | string | undefined
+    children?:JSX.Element | string | undefined,
+    fontSize?:string,
+    className?:string,
 }
 
 export const Button:React.FC<ButtonProps> = (props)=>{
     return (
-        <ButtonTag  type={props.type} is3D={props.is3D} width={props.width} height={props.height}>
+        <ButtonTag className={props.className} type={props.type} is3D={props.is3D} width={props.width} height={props.height} fontSize={props.fontSize}>
             {props.children && props.children}
         </ButtonTag>
     )
@@ -47,8 +49,9 @@ export const Button:React.FC<ButtonProps> = (props)=>{
 
 
 const ButtonTag = styled.div<ButtonProps>`
-  font-size: 30px;
-  margin: 20px 0;
+  text-align: center;
+  font-size: ${(state:ButtonProps)=>state.fontSize || "16px"};
+  margin: 20px 5px;
   border-radius:10px;
   cursor: pointer;
   padding: 15px;

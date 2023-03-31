@@ -1,15 +1,21 @@
 import styled from "styled-components";
 import sprite from "@/../public/assets/img/sprites.png";
-import Link  from "next/link";
+import Link from "next/link";
+import {Button, ButtonType} from "@/components/reusable/Button";
+import {useLang} from "@/hooks/getText";
+
 interface a{
     name:1
 }
 export const Sidebar = ()=>{
+    const getText = useLang("Home")
     return(
         <Container>
             {/*<MyLink $backgroundPosition={"10.8rem -6rem"} href = "/"></MyLink>*/}
             <SidebarLink href = "/" $position={'10.5rem 0'} $width = {"100%"} $marginLeft = {"0"}></SidebarLink>
             <SidebarLink href = "/" $position={'-2.1rem -6.2rem'} $width={"30px"}>Play</SidebarLink>
+            <Button width="120px" height='50px' type={ButtonType.Dark} fontSize={"14px"}>{getText("Sidebar", "signup")}</Button>
+            <Button width="120px" height='50px' type={ButtonType.Dark} fontSize={"14px"}>{getText("Sidebar", "signup")}</Button>
         </Container>
     )
 }
