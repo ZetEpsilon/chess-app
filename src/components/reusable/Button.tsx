@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import {jsx} from "@emotion/react";
-import JSX = jsx.JSX;
+import {ComponentHasChild, ComponentHasCss} from "@/index";
+import Link from "next/link";
 
 const buttonStyle = {
     light:{
@@ -28,19 +29,28 @@ export enum ButtonType{
     Dark = 'dark',
 }
 
-interface ButtonProps{
+interface ButtonProps extends ComponentHasChild, ComponentHasCss{
     type:ButtonType,
     is3D?:boolean
     width?:string,
     height?:string,
-    children?:JSX.Element | string | undefined,
     fontSize?:string,
     className?:string,
+    href?:string
 }
 
 export const Button:React.FC<ButtonProps> = (props)=>{
+    const href = props.href || "#" //todo: remove it when all link will have valid href
+    console.log(props.is3D)
     return (
-        <ButtonTag className={props.className} type={props.type} is3D={props.is3D} width={props.width} height={props.height} fontSize={props.fontSize}>
+        <ButtonTag className={props.className}
+                   type={props.type}
+                   $is3D={props.is3D}
+                   width={props.width} height={props.height}
+                   fontSize={props.fontSize}
+                   css = {props.css}
+                   href = {href}
+        >
             {props.children && props.children}
         </ButtonTag>
     )
@@ -48,25 +58,34 @@ export const Button:React.FC<ButtonProps> = (props)=>{
 
 
 
-const ButtonTag = styled.div<ButtonProps>`
+const ButtonTag = styled(Link)<ButtonProps>`
+  
   text-align: center;
   font-size: ${(state:ButtonProps)=>state.fontSize || "16px"};
-  margin: 20px 5px;
   border-radius:10px;
   cursor: pointer;
   padding: 15px;
-  width: ${(props:ButtonProps)=>props?.width || "100%"};
-  height: ${(props:ButtonProps)=>props?.height || "100%"};
+  width: 100%;
+  max-width: ${(props:ButtonProps)=>props?.width || "100%"};
+  // height: ${(props:ButtonProps)=>props?.height || "100%"};
+  user-select: none;
+  display: block;
   ${(props:ButtonProps)=>{
       return buttonStyle[props.type].primary
   }}
   ${(props:ButtonProps)=>{
-      if(props.is3D){
+      if(props.$is3D){
           return buttonStyle[props.type].shadow
       }
   }}
+
+  ${(props:ButtonProps)=>props.css}
   
   &:active{
     transform: scale(0.99);
+  }
+  
+  @media(max-width: 680px){
+    font-size: 16px;
   }
 `
